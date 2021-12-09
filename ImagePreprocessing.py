@@ -11,6 +11,7 @@ After that it pickles (serializes) the image array and the label for that image
 import os
 import cv2
 import pickle
+import tensorflow as tf
 
 # Preprocess image at a filepath to be fed into CNN
 def preprocess_image(filepath):
