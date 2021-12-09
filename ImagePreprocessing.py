@@ -12,20 +12,22 @@ import os
 import cv2
 import pickle
 
+# Preprocess image at a filepath to be fed into CNN
 def preprocess_image(filepath):
     img_array = cv2.imread(filepath)
     img_array = cv2.resize(img_array, (224,224))
-    img_array = np.expand_dims(img_array, axis=0)
     return tf.keras.applications.mobilenet.preprocess_input(img_array)
 
 
 if __name__ == "__main__":
     H5FileName = "CNN.h5"
-    DatasetPath = r"G:\Python Projects\Cifar10 CNN\AlienVsPredatorDataset"
-    PickledDatasetSavePath = r"G:\Python Projects\Cifar10 CNN\Pickled Datasets"
+    DatasetPath = r"G:\Python Projects\AlienVsPredator CNN\AlienVsPredatorDataset"
+    PickledDatasetSavePath = r"G:\Python Projects\AlienVsPredator CNN\Pickled Datasets"
     
     preprocessedImageArrays = []
 
+    # This code pickles the array of preprocessed images depending on what set they belong to
+    # So there is one set for training and one set for testing
     for folder in os.listdir(DatasetPath):
         classPath = os.path.join(DatasetPath, folder)
         for category in os.listdir(classPath):
@@ -33,8 +35,8 @@ if __name__ == "__main__":
             for image in os.listdir(categoryPath):
                 i = preprocess_image(os.path.join(categoryPath, image))
                 preprocessedImageArrays.append([i, category])
-            with open(os.path.join(PickledDatasetSavePath, category + " " + folder), "wb") as f:
-                # Pickle means serialize
-                pickle.dump(preprocessedImageArrays, f)
-                preprocessedImageArrays = []
+        with open(os.path.join(PickledDatasetSavePath, folder), "wb") as f:
+            # Pickle means serialize
+            pickle.dump(preprocessedImageArrays, f)
+            preprocessedImageArrays = []
                 
