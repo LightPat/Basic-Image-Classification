@@ -8,5 +8,9 @@ We are using a technique called transfer learning, which is taking a pretrained 
 If you just want the completed model, download the Best CNN.h5 file. This is the file that contains the neural network's structure and weights for classification.
 
 Cifar10 CNN.py is an example of how to build a CNN on the Cifar10 dataset, it's not important to the project, just an example.
+
 ImagePreprocessing.py needs to be run in order to create the datasets for training later.
-MobileNetTransferLearning.py This script loads the dataset and trains and tests the model.
+
+MobileNetTransferLearning.py loads the dataset and trains and tests the model.
+
+ImagePredictor.py can be used to return prediction off images downloaded onto your hard drive.
