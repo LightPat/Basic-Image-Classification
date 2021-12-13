@@ -7,7 +7,6 @@ Created on Thu Dec  9 12:37:52 2021
 
 import cv2
 import numpy as np
-import tensorflow as tf
 from tensorflow.keras.models import load_model
 from ImagePreprocessing import preprocess_image
 
@@ -31,6 +30,8 @@ if __name__ == "__main__":
     # First Image
     cnn = load_model(H5FileName)
     img = preprocess_image(imageToPredict)
+    # Have to multiply by 255 since array is normalized
+    cv2.imwrite("Preprocessed1.png", img * 255)
     img = np.expand_dims(img, axis=0)
     prediction = cnn.predict(img)
     decodedPrediction = decode_predictions(prediction)
@@ -39,8 +40,8 @@ if __name__ == "__main__":
     print()
     
     # Second Image
-    cnn = load_model(H5FileName)
     img = preprocess_image(imageToPredict2)
+    cv2.imwrite("Preprocessed2.png", img * 255)
     img = np.expand_dims(img, axis=0)
     prediction = cnn.predict(img)
     decodedPrediction = decode_predictions(prediction)
